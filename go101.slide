@@ -1,0 +1,91 @@
+# This is a file.
+
+Go
+
+Ignacio Rios Vazquez
+Hexacta
+ivazquez@hexacta.com
+http://www.hexacta.com
+
+* Introducción
+
+* ¿Por qué un nuevo lenguaje?
+
+Hace mucho tiempo que no surgen nuevos lenguajes para el desarrollo de software de sistema (o de base).
+
+Escribir software de sistema es muy difícil, hay que elegir entre eficiencia de compilación, de ejecución o facilidad de programación. Ningún lenguaje de los más usados posee las tres.
+
+- Las computadoras cada vez son más rápidas.
+- La administración de dependencias es muy importante.
+- Resultan muy atractivos nuevos lenguajes que no son fuertemente tipados (JavaScript, Python). Los programadores eligen facilidad sobre eficiencia.
+- Conceptos como "garbage collection" y computación en paralelo no están bien soportados por los lenguajes de sistema más populares.
+- La aparición de computadoras con múltiples núcleos generó confusiones y preocupaciones.
+
+* Go
+
+Vale la pena crear un nuevo lenguaje con gestión de memoria, concurrente y rápido de compilar. Go:
+
+- Permite compilar un programa en una computadora en pocos segundos.
+- Provee un modelo de arquitectura que facilita el análisis de dependencias.
+- Provee gestión de memoria (GC) y permite la comunicación y ejecución de tareas concurrentes.
+- Por su diseño, propone una arquitectura de software orientada a computadoras con varios procesadores.
+
+* Historia
+
+En septiembre de 2007, Robert Griesemer, Rob Pike y Ken Thompson comenzaron a definir los objetivos para un nuevo lenguaje.
+
+En noviembre de 2009, Go se convirtió en un proyecto público y "open source".
+
+En marzo de 2012 se publica Go 1
+
+En junio de 2014 se publica Go 1.3
+
+* Influencias
+
+
+* Hello Gophers!
+
+.play go101/hello.go
+
+* Concurrencia
+
+Go promueve el desarrollo de software concurrente.
+
+¿Cómo ocurren las cosas a nuestro alrededor?
+
+Nuestra realidad no puede ser representada por un modelo de ejecución secuencial.
+
+* ¿Qué significa concurrencia?
+
+Es la composición de procesos de computación que se ejecutan de manera independiente.
+
+Concurrencia no es lo mismo que paralelismo (anque lo facilita).
+.link http://golang.org/s/concurrency-is-not-parallelism
+
+Es una manera de estructurar software, en particular es una forma de escribir código que interactúa bien con nuestro mundo.
+
+* A model for software construction
+
+Fácil de comprender y utilizar.
+
+* Links
+
+Go Home:
+
+.link http://golang.org
+
+Go Tour (curso introductorio)
+
+.link http://tour.golang.org
+
+Documentación:
+
+.link http://golang.org/pkg
+
+Artículos:
+
+.link http://golang.org/doc
+
+Concurrency is not parallelism:
+
+.link http://golang.org/s/concurrency-is-not-parallelism

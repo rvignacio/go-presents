@@ -1,29 +1,25 @@
-# This is a file.
-
 Go
 
 Ignacio Ríos Vazquez
 Hexacta
- ivazquez@hexacta.com
- http://www.hexacta.com
+ivazquez@hexacta.com
+http://www.hexacta.com
 
 * Introducción
 
 * ¿Por qué un nuevo lenguaje?
-
-Hace mucho tiempo que no surgen nuevos lenguajes para el desarrollo de software de sistema (o de base).
+Hace mucho tiempo que no surgen nuevos lenguajes para el desarrollo de software de sistema (software de base).
 
 Escribir software de sistema es muy difícil, hay que elegir entre eficiencia de compilación, de ejecución o facilidad de programación. Ningún lenguaje de los más usados posee las tres.
 
 - Las computadoras cada vez son más rápidas.
 - La administración de dependencias es muy importante.
 - Resultan muy atractivos nuevos lenguajes que no son fuertemente tipados (JavaScript, Python). Los programadores eligen facilidad sobre eficiencia.
-- Conceptos como "garbage collection" y computación en paralelo no están bien soportados por los lenguajes de sistema más populares.
-- La aparición de computadoras con múltiples núcleos generó confusiones y preocupaciones.
+- La administración de memoria y la computación en paralelo no están bien soportadas por los lenguajes más populares.
+- La aparición de computadoras con múltiples núcleos generó confusiones, preocupaciones y nuevos problemas.
 
 * Go
-
-Vale la pena intentar de nuevo con un lenguaje con gestión de memoria, que sea concurrente y rápido de compilar. Go:
+Vale la pena intentar de nuevo con un lenguaje con gestión de memoria, que sea concurrente y rápido de compilar.
 
 - Permite compilar un programa en una computadora en pocos segundos.
 - Provee un modelo de arquitectura que facilita el análisis de dependencias.
@@ -31,7 +27,6 @@ Vale la pena intentar de nuevo con un lenguaje con gestión de memoria, que sea 
 - Por su diseño, propone una arquitectura de software orientada a computadoras con varios procesadores.
 
 * Historia
-
 En septiembre de 2007, Robert Griesemer, Rob Pike y Ken Thompson comenzaron a definir los objetivos para un nuevo lenguaje.
 
 En noviembre de 2009, Go se convirtió en un proyecto público y "open source".
@@ -41,7 +36,6 @@ En marzo de 2012 se publica Go 1
 En junio de 2014 se publica Go 1.3
 
 * Influencias
-
 C: sintaxis y expresiones.
 Pascal: declaración de variables.
 Modula 2, Oberon 2: paquetes para distribución.
@@ -60,8 +54,63 @@ C++, C#, Java, JavaScript, LISP, Python, Scala, ...
 
 .play go101/hello.go
 
+* Funciones
+Sintaxis
+
+.play go101/functions-simple-return.go /START/,/STOP/
+
+* Funciones
+Pueden devolver más de un resultado
+
+.play go101/functions-multiple-return.go /START/,/STOP/
+
+Errores en lugar de excepciones
+
+.code go101/functions-multiple-return.go /^func.WriteString/,/}/
+
+* Tipos
+Determinan un conjunto de valores y operaciones específicos.
+
+Implícitos: int, uint, float, complex64, bool, byte, rune, string, error
+
+Compuestos:
+
+.play go101/point.go /START/,/STOP/
+
+* Métodos
+Agregan comportamiento a los tipos
+
+.play go101/point-with-method.go /START/,/STOP/
+
+* Otros tipos implícitos
+
+- Array: `var` `a` `[2]string`
+- Slice: `var` `a` `[]string`
+- Map: `var` `a` `map[string]Point`
+- Channels: `var` `a` `chan` `int`
+
+Funciones
+
+- `append(a,` `b)`
+- `len(a)`
+- `new` vs `make`
+
+* Interfaces
+Describen comportamiento: si puede hacer _esto_, entonces puede usarse _aquí_
+
+.play go101/stringer.go /START/,/STOP/
+
+* Valores y referencias
+Los operadores `&` y `*` sirven para referenciar y desreferenciar valores y direcciones de memoria.
+En la mayoría de los casos, Go se encarga de convertir referencias a valores cuando es necesario.
+
+Métodos que aplican sobre referencias:
+
+.code go101/point-with-method.go /REFERENCE/,/STOPREFERENCE/
+
 * Concurrencia
 
+* Concurrencia
 Go promueve el desarrollo de software concurrente.
 
 ¿Cómo ocurren las cosas a nuestro alrededor?

@@ -45,9 +45,9 @@ Smalltalk: métodos.
 Newsqueak: <-, :=
 APL: iota
 
-Y otros... También se introdujeron nuevas ideas: defer, constants.
+Se agregaron nuevas ideas: defer, constants.
 
-Junto a lecciones aprendidas de:
+Y lecciones aprendidas de:
 C++, C#, Java, JavaScript, LISP, Python, Scala, ...
 
 * Hello Gophers!
@@ -57,16 +57,16 @@ C++, C#, Java, JavaScript, LISP, Python, Scala, ...
 * Funciones
 Sintaxis
 
-.play go101/functions-simple-return.go /START/,/STOP/
+.play go101/sum.go /START/,/STOP/
 
 * Funciones
 Pueden devolver más de un resultado
 
-.play go101/functions-multiple-return.go /START/,/STOP/
+.play go101/split.go /START/,/STOP/
 
 Errores en lugar de excepciones
 
-.code go101/functions-multiple-return.go /^func.WriteString/,/}/
+.code go101/split.go /^func.WriteString/,/}/
 
 * Tipos
 Determinan un conjunto de valores y operaciones específicos.
@@ -115,7 +115,7 @@ Go promueve el desarrollo de software concurrente.
 
 ¿Cómo ocurren las cosas a nuestro alrededor?
 
-Nuestra realidad no puede ser representada por un modelo de ejecución secuencial.
+Nuestra realidad no responde a un modelo de ejecución secuencial.
 
 * ¿Qué significa concurrencia?
 
@@ -129,6 +129,9 @@ Es una manera de estructurar software, en particular es una forma de escribir c�
 * A model for software construction
 
 Fácil de comprender y utilizar.
+
+* Principios
+Don't communicate by sharing memory, share memory by communicating.
 
 * Links
 

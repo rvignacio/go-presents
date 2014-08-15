@@ -127,8 +127,26 @@ Concurrencia no es lo mismo que paralelismo (anque lo facilita).
 Es una manera de estructurar software, en particular es una forma de escribir código que interactúa bien con nuestro mundo.
 
 * A model for software construction
-
 Fácil de comprender y utilizar.
+
+* Un ejemplo
+Un servicio simple
+
+.play go101/fibonacci.1.0.go
+
+* Un ejemplo un poco más aleatorio
+
+.play go101/fibonacci.1.1.go
+
+* Basta de esperar
+La palabra "go" permite iniciar una "go-rutina", una función que se ejecuta de manera independiente.
+
+.play go101/fibonacci.2.0.go /START/,/STOP/
+
+Las "go-rutinas":
+ - NO SON threads (puede haber un único thread con varias "go-rutinas")
+ - tienen su propia "pila" (crece y disminuye según sea necesaria)
+ - son simples y eficientes en el manejo de recursos (se pueden tener cientos o miles)
 
 * Principios
 Don't communicate by sharing memory, share memory by communicating.

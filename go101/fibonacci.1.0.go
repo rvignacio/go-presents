@@ -7,7 +7,6 @@ import (
 	"time"
 )
 
-// START OMIT
 func Fibonacci(msg string) {
 	x := 0
 	y := 1
@@ -21,5 +20,3 @@ func Fibonacci(msg string) {
 func main() {
 	Fibonacci("Fib")
 }
-
-// STOP OMIT

@@ -8,7 +8,6 @@ import (
 	"time"
 )
 
-// START OMIT
 func Fibonacci(msg string) {
 	x, y := 0, 1
 	for {
@@ -18,6 +17,7 @@ func Fibonacci(msg string) {
 	}
 }
 
+// START OMIT
 func main() {
 	rand.Seed(time.Now().UnixNano())
 	go Fibonacci("Fib")

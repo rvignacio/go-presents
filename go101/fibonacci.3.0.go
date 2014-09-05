@@ -27,8 +27,7 @@ func main() {
 	rand.Seed(time.Now().UnixNano())
 	c := Fibonacci("Fib")
 	for i := 0; i < 5; i++ {
-		msg := <-c
-		fmt.Println("Fibonacci says: ", msg)
+		fmt.Println("Fibonacci says: ", <-c)
 	}
 	fmt.Println("I'm bored, good bye.")
 }

@@ -8,32 +8,50 @@ http://www.hexacta.com
 * Introducción
 
 * ¿Por qué un nuevo lenguaje?
-Hace mucho tiempo que no surgen nuevos lenguajes para el desarrollo de software de sistema (software de base).
+Hace años que no surgen nuevos lenguajes para el desarrollo de software de sistema (software de base).
 
-Escribir software de sistema es muy difícil, hay que elegir entre eficiencia de compilación, de ejecución o facilidad de programación. Ningún lenguaje de los más usados posee las tres.
+Escribir software es muy difícil, hay que elegir entre eficiencia de compilación, eficiencia de ejecución o facilidad de programación. Ningún lenguaje de los más usados posee las tres.
 
-- Las computadoras cada vez son más rápidas.
-- La administración de dependencias es muy importante.
-- Resultan muy atractivos nuevos lenguajes que no son fuertemente tipados (JavaScript, Python). Los programadores eligen facilidad sobre eficiencia.
-- La administración de memoria y la computación en paralelo no están bien soportadas por los lenguajes más populares.
-- La aparición de computadoras con múltiples núcleos generó confusiones, preocupaciones y nuevos problemas.
+* Tendencias
+- Las computadoras son más rápidas.
+- La administración de dependencias es más compleja.
+- Los programadores eligen facilidad antes que eficiencia y prefieren lenguajes interpretados (JavaScript, Python, Ruby).
+- La administración de memoria y la computación en paralelo no están bien soportadas por los lenguajes de sistema más populares.
+- La aparición de procesadores con varios núcleos generó confusiones, preocupaciones y nuevos problemas.
+
+* Problemas
+Google tiene problemas... muy grandes.
+
+Muchas líneas de código (millones, casi todo C++, el resto es Java y Python).
+Muchos programadores distribuidos alrededor del mundo cambiando muchas cosas al mismo tiempo.
+
+[[http://google-engtools.blogspot.com.ar/2011/06/build-in-cloud-accessing-source-code.html][Y todo funciona (bien)]]
+
+El proceso de desarrollo es muy amplio, suele ser lento y casi siempre es desprolijo... pero _es_ efectivo.
 
 * Go
-Vale la pena intentar de nuevo con un lenguaje con gestión de memoria, que sea concurrente y rápido de compilar.
+Vale la pena crear un nuevo lenguaje para hacer más eficiente el desarrollo.
 
-- Permite compilar un programa en una computadora en pocos segundos.
-- Provee un modelo de arquitectura que facilita el análisis de dependencias.
-- Provee gestión de memoria (GC) y permite la comunicación y ejecución de tareas concurrentes.
-- Por su diseño, propone una arquitectura de software orientada a computadoras con varios procesadores.
+Objetivos
+
+- Compilar un programa en una computadora en pocos segundos.
+- Modelo de arquitectura que facilite el análisis de dependencias.
+- Gestión de memoria (GC).
+- Comunicación y ejecución de tareas concurrentes.
+- Arquitectura de software orientada a computadoras con varios procesadores.
+- Sintaxis simple y regular.
+- Librería de utilidades completa (_"Batteries_included"_).
 
 * Historia
-En septiembre de 2007, Robert Griesemer, Rob Pike y Ken Thompson comenzaron a definir los objetivos para un nuevo lenguaje.
+Septiembre de 2007, Robert Griesemer (v8), Rob Pike (UTF-8) y Ken Thompson (C) comenzaron a definir los objetivos para un nuevo lenguaje.
 
-En noviembre de 2009, Go se convirtió en un proyecto público y "open source".
+Noviembre de 2009, Go se convirtió en un proyecto público y "open source".
 
-En marzo de 2012 se publica Go 1
+Marzo de 2012 se publica Go 1 (Garantía de compatibilidad)
 
-En junio de 2014 se publica Go 1.3
+Junio de 2014 se publica Go 1.3
+
+Go 1.4 (diciembre de 2014)
 
 * Influencias
 C: sintaxis y expresiones.
@@ -49,6 +67,9 @@ Se agregaron nuevas ideas: defer, constants.
 
 Y lecciones aprendidas de:
 C++, C#, Java, JavaScript, LISP, Python, Scala, ...
+(_Pero_Go_es_más_interesante_por_lo_que_no_tiene_)
+
+* Código
 
 * Hello Gophers!
 
@@ -71,7 +92,7 @@ Errores en lugar de excepciones
 * Tipos
 Determinan un conjunto de valores y operaciones específicos.
 
-Implícitos: int, uint, float, complex64, bool, byte, rune, string, error
+Implícitos: int(8, 16, 32, 64), uint, float, complex64, bool, byte, rune, string, error
 
 Compuestos:
 
@@ -85,7 +106,7 @@ Agregan comportamiento a los tipos
 * Otros tipos implícitos
 
 - Array: `var` `a` `[2]string`
-- Slice: `var` `a` `[]string`
+- Slice: `var` `a` `[]string` (referencia a un Array, crece como sea necesario usando la función append())
 - Map: `var` `a` `map[string]Point`
 - Channels: `var` `a` `chan` `int`
 
@@ -121,35 +142,66 @@ Nuestra realidad no responde a un modelo de ejecución secuencial.
 
 Es la composición de procesos de computación que se ejecutan de manera independiente.
 
-Concurrencia no es lo mismo que paralelismo (anque lo facilita).
+Concurrencia no es lo mismo que paralelismo (aunque lo facilita).
 .link http://golang.org/s/concurrency-is-not-parallelism
+Concurrencia: administrar varias tareas al mismo tiempo.
+Paralelismo: hacer varias tareas al mismo tiempo.
 
-Es una manera de estructurar software, en particular es una forma de escribir código que interactúa bien con nuestro mundo.
+La concurrencia se ocupa de la estructura, mientras que el paralelismo se encarga de la ejecución.
 
-* A model for software construction
-Fácil de comprender y utilizar.
+Es una forma de escribir código que interactúa bien con nuestra realidad.
 
-* Un ejemplo
-Un servicio simple
+* Una función simple
 
 .play go101/fibonacci.1.0.go
 
-* Un ejemplo un poco más aleatorio
+* Un poco más aleatoria
 
-.play go101/fibonacci.1.1.go
+.play go101/fibonacci.1.1.go /START/,/STOP/
 
 * Basta de esperar
-La palabra "go" permite iniciar una "go-rutina", una función que se ejecuta de manera independiente.
+La palabra reservada "go" permite iniciar una "go-rutina", una función que se ejecuta de manera independiente.
 
 .play go101/fibonacci.2.0.go /START/,/STOP/
 
 Las "go-rutinas":
  - NO SON threads (puede haber un único thread con varias "go-rutinas")
- - tienen su propia "pila" (crece y disminuye según sea necesaria)
- - son simples y eficientes en el manejo de recursos (se pueden tener cientos o miles)
+ - Tienen su propia "pila" (crece y disminuye según sea necesaria)
+ - Son simples y eficientes en el manejo de recursos (se pueden tener cientos o miles)
+
+* Esperando de nuevo
+
+.play go101/fibonacci.2.1.go /START/,/STOP/
+
+* Channels
+Proveen un mecanismo de comunicación entre dos funciones que se ejecutan de manera concurrente.
+Permite enviar y recibir valores de un tipo determinado.
+
+	chan T          // can be used to send and receive values of type T
+	chan<- float64  // can only be used to send float64s
+	<-chan int      // can only be used to receive ints
+
+* Comunicación
+
+.play go101/fibonacci.3.0.go /START/,/STOP/
+
+* Sincronización
+Cuando la función principal ejecuta `<-c` espera hasta que recibe un valor.
+
+De la misma manera, cuando nuestra función ejecuta `c` `<-` `value` espera hasta que un receptor esté listo.
+
+Ambos extremos deben estar listos para participar de la comunicación. Si no, se espera.
+
+Los channels cumplen la función de sincronizar y comunicar.
 
 * Principios
 Don't communicate by sharing memory, share memory by communicating.
+
+* Y más...
+- gotest
+- godoc
+- go get
+- gofmt
 
 * Links
 

@@ -7,9 +7,9 @@ import (
 )
 
 // START OMIT
-func Sum(x, y int) int {
-	return x + y
-}
+func Sum(x, y int) int { // HL
+	return x + y // HL
+} // HL
 
 func main() {
 	var s int

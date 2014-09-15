@@ -13,14 +13,14 @@ func WriteString(w io.Writer, s string) (n int, err error) {
 }
 
 // START OMIT
-func Split(sum int) (x, y int) {
+func Split(sum int) (x, y int) { // HL
 	x = sum * 4 / 9
 	y = sum - x
-	return
+	return // HL
 }
 
 func main() {
-	a, b := Split(17)
+	a, b := Split(17) // HL
 	fmt.Println(a, b)
 }
 

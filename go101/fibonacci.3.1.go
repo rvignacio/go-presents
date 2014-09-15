@@ -8,7 +8,6 @@ import (
 	"time"
 )
 
-// START OMIT
 func Fibonacci(msg string) <-chan string {
 	c := make(chan string)
 	go func() {
@@ -25,6 +24,7 @@ func Fibonacci(msg string) <-chan string {
 
 func main() {
 	rand.Seed(time.Now().UnixNano())
+	// START OMIT
 	alice := Fibonacci("Alice")
 	bob := Fibonacci("Bob  ")
 	for i := 0; i < 5; i++ {
@@ -32,6 +32,5 @@ func main() {
 		fmt.Println(<-bob)
 	}
 	fmt.Println("I'm bored, good bye.")
+	// STOP OMIT
 }
-
-// STOP OMIT

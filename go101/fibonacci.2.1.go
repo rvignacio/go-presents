@@ -21,8 +21,8 @@ func Fibonacci(msg string) {
 func main() {
 	rand.Seed(time.Now().UnixNano())
 	go Fibonacci("Fib")
-	fmt.Println("Waiting...")
-	time.Sleep(4 * time.Second)
+	fmt.Println("Waiting...")   // HL
+	time.Sleep(4 * time.Second) // HL
 	fmt.Println("I'm bored, good bye.")
 }
 

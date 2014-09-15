@@ -5,12 +5,24 @@ Hexacta
 ivazquez@hexacta.com
 http://www.hexacta.com
 
+* Agenda
+
+Introducción, objetivos e historia
+
+Sintaxis, tipos de datos
+
+Concurrencia
+
+Patrones de concurrencia
+
 * Introducción
 
 * ¿Por qué un nuevo lenguaje?
 Hace años que no surgen nuevos lenguajes para el desarrollo de software de sistema (software de base).
 
 Escribir software es muy difícil, hay que elegir entre eficiencia de compilación, eficiencia de ejecución o facilidad de programación. Ningún lenguaje de los más usados posee las tres.
+
+.image go101/img/sadgopher.png _ 250
 
 * Tendencias
 - Las computadoras son más rápidas.
@@ -23,11 +35,12 @@ Escribir software es muy difícil, hay que elegir entre eficiencia de compilaci�
 Google tiene problemas... muy grandes.
 
 Muchas líneas de código (millones, casi todo C++, el resto es Java y Python).
+
 Muchos programadores distribuidos alrededor del mundo cambiando muchas cosas al mismo tiempo.
 
 [[http://google-engtools.blogspot.com.ar/2011/06/build-in-cloud-accessing-source-code.html][Y todo funciona (bien)]]
 
-El proceso de desarrollo es muy amplio, suele ser lento y casi siempre es desprolijo... pero _es_ efectivo.
+El proceso de desarrollo es extenso, suele ser lento y casi siempre es desprolijo... pero _es_ efectivo.
 
 * Go
 Vale la pena crear un nuevo lenguaje para hacer más eficiente el desarrollo.
@@ -74,6 +87,8 @@ C++, C#, Java, JavaScript, LISP, Python, Scala, ...
 * Hello Gophers!
 
 .play go101/hello.go
+
+.image go101/img/gophers.jpg 300 _
 
 * Funciones
 Sintaxis
@@ -155,7 +170,7 @@ Es una forma de escribir código que interactúa bien con nuestra realidad.
 
 .play go101/fibonacci.1.0.go
 
-* Un poco más aleatoria
+* Un poco más impredecible
 
 .play go101/fibonacci.1.1.go /START/,/STOP/
 
@@ -166,29 +181,31 @@ La palabra reservada "go" permite iniciar una "go-rutina", una función que se e
 
 Las "go-rutinas":
  - NO SON threads (puede haber un único thread con varias "go-rutinas")
- - Tienen su propia "pila" (crece y disminuye según sea necesaria)
+ - Tienen su propia "pila" (crece y disminuye según sea necesario)
  - Son simples y eficientes en el manejo de recursos (se pueden tener cientos o miles)
 
 * Esperando de nuevo
 
 .play go101/fibonacci.2.1.go /START/,/STOP/
 
+* Comunicación
+
 * Channels
 Proveen un mecanismo de comunicación entre dos funciones que se ejecutan de manera concurrente.
 Permite enviar y recibir valores de un tipo determinado.
 
-	chan T          // can be used to send and receive values of type T
-	chan<- float64  // can only be used to send float64s
-	<-chan int      // can only be used to receive ints
+	chan T          // recibe y envía valores de tipo T
+	chan<- float64  // sólo envía float64s
+	<-chan int      // sólo recibe ints
 
 * Comunicación
 
 .play go101/fibonacci.3.0.go /START/,/STOP/
 
 * Sincronización
-Cuando la función principal ejecuta `<-c` espera hasta que recibe un valor.
+Cuando la función principal ejecuta "<-c" espera hasta que recibe un valor.
 
-De la misma manera, cuando nuestra función ejecuta `c` `<-` `value` espera hasta que un receptor esté listo.
+De la misma manera, cuando nuestra función ejecuta "c <- value" espera hasta que un receptor esté disponible.
 
 Ambos extremos deben estar listos para participar de la comunicación. Si no, se espera.
 
@@ -196,6 +213,14 @@ Los channels cumplen la función de sincronizar y comunicar.
 
 * Principios
 Don't communicate by sharing memory, share memory by communicating.
+
+* Redundancia
+
+.play go101/fibonacci.3.1.go /START/,/STOP/
+
+* Fan In
+
+.play go101/fibonacci.3.2.go /START/,/STOP/
 
 * Y más...
 - gotest

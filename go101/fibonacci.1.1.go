@@ -14,12 +14,12 @@ func Fibonacci(msg string) {
 	for {
 		x, y = y, x+y
 		fmt.Printf("%s: %d!\n", msg, x)
-		time.Sleep(time.Duration(rand.Intn(100)*10) * time.Millisecond)
+		time.Sleep(time.Duration(rand.Intn(100)*10) * time.Millisecond) // HL
 	}
 }
 
 func main() {
-	rand.Seed(time.Now().UnixNano())
+	rand.Seed(time.Now().UnixNano()) // HL
 	Fibonacci("Fib")
 }
 

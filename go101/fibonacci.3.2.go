@@ -8,44 +8,32 @@ import (
 	"time"
 )
 
-func Fibonacci(msg string, howMany int) <-chan string {
+func Fibonacci(msg string) <-chan string {
 	c := make(chan string)
 	go func() {
 		x, y := 0, 1
-		for i := 0; i < howMany; i++ {
+		for {
 			x, y = y, x+y
 			c <- fmt.Sprintf("%s: %d!", msg, x)
 			time.Sleep(time.Duration(rand.Intn(100)*10) * time.Millisecond)
 		}
-		close(c)
+		return
 	}()
 
 	return c
 }
 
 // START OMIT
-func fanIn(input1, input2 <-chan string) <-chan string {
+func fanIn(input1, input2 <-chan string, quit <-chan time.Time) <-chan string {
 	c := make(chan string)
-	var closed1, closed2 bool
 	go func() {
 		for {
-			if closed1 && closed2 {
+			select {
+			case c <- <-input1:
+			case c <- <-input2:
+			case <-quit:
 				close(c)
 				return
-			}
-			select {
-			case val, ok := <-input1:
-				if !ok {
-					closed1 = true
-				} else {
-					c <- val
-				}
-			case val, ok := <-input2:
-				if !ok {
-					closed2 = true
-				} else {
-					c <- val
-				}
 			}
 		}
 	}()
@@ -54,7 +42,7 @@ func fanIn(input1, input2 <-chan string) <-chan string {
 
 func main() {
 	rand.Seed(time.Now().UnixNano())
-	c := fanIn(Fibonacci("Alice", 5), Fibonacci("Bob  ", 5))
+	c := fanIn(Fibonacci("Alice"), Fibonacci("Bob  "), time.After(5*time.Second))
 	for {
 		msg, ok := <-c
 		if !ok {
@@ -62,6 +50,7 @@ func main() {
 		}
 		fmt.Println(msg)
 	}
+	fmt.Println("I'm bored, good bye.")
 }
 
 // STOP OMIT

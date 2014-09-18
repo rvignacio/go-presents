@@ -90,6 +90,20 @@ C++, C#, Java, JavaScript, LISP, Python, Scala, ...
 
 .image go101/img/gophers.jpg 300 _
 
+* Paquetes
+Todos los programas en Go están formados paquetes.
+Los programas comienzan a ejecutarse en el `package` `main`.
+
+.play go101/packages.go
+
+Este programa importa los paquetes "fmt" y "math/rand".
+Por convención el nombre del paquete es la última parte del "path".
+
+* Nombres exportados
+Una vez importado un paquete, se puede acceder a los nombres que exporta.
+
+.play go101/exported.go
+
 * Funciones
 Sintaxis
 
@@ -103,6 +117,12 @@ Pueden devolver más de un resultado
 Errores en lugar de excepciones
 
 .code go101/split.go /^func.WriteString/,/}/
+
+* Closures
+
+Un "closure" es una función que referencia variables fuera de su cuerpo.
+
+.play go101/closures.go /START/,/STOP/
 
 * Tipos
 Determinan un conjunto de valores y operaciones específicos.
@@ -149,9 +169,15 @@ Métodos que aplican sobre referencias:
 * Concurrencia
 Go promueve el desarrollo de software concurrente.
 
-¿Cómo ocurren las cosas a nuestro alrededor?
+¿Qué es la concurrencia?
 
-Nuestra realidad no responde a un modelo de ejecución secuencial.
+¿Por qué incluirla como un aspecto principal del lenguaje?
+
+¿Qué vemos a nuestro alrededor?
+
+¿Nuestra realidad se puede representar de manera secuencial?
+
+¿O es un conjunto de interacciones independientes?
 
 * ¿Qué significa concurrencia?
 
@@ -165,6 +191,14 @@ Paralelismo: hacer varias tareas al mismo tiempo.
 La concurrencia se ocupa de la estructura, mientras que el paralelismo se encarga de la ejecución.
 
 Es una forma de escribir código que interactúa bien con nuestra realidad.
+
+* Concurrencia en Go
+
+- Fácil de entender
+- Fácil de usar
+- ¡No hay que ser un experto!
+
+(Mucho más simple que lidiar con  paralelismo (threads, semáforos, locks, barreras, etc...))
 
 * Una función simple
 
@@ -218,34 +252,48 @@ Don't communicate by sharing memory, share memory by communicating.
 
 .play go101/fibonacci.3.1.go /START/,/STOP/
 
+Problema: Bob bloquea hasta que Alice está lista.
+
 * Fan In
 
-.play go101/fibonacci.3.2.go /START/,/STOP/
+.code go101/fibonacci.3.2.go /STARTFANIN/,/STOPFANIN/
 
-* Y más...
-- gotest
-- godoc
+`select` elige qué operación se va a ejecutar dentro de un set de operaciones de entrada/salida.
+
+* Fan In
+
+.play go101/fibonacci.3.2.go /STARTMAIN/,/STOPMAIN/
+
+.image go101/img/gophermegaphones.jpg 350 _
+
+* Timeout y close()
+
+.code go101/fibonacci.3.3.go /STARTFANIN/,/STOPFANIN/
+
+`close()` permite cerrar un channel. Una vez cerrado, devuelve siempre el valor cero del tipo del channel sin bloquear.
+
+* Timeout y close()
+
+.play go101/fibonacci.3.3.go /STARTMAIN/,/STOPMAIN/
+
+* Utilidades y más...
+- go build
+- go install
+- go test
+- go doc
 - go get
-- gofmt
+- go fmt
+- go vet
+- go run
 
 * Links
 
-Go Home:
-
-.link http://golang.org
-
-Go Tour (curso introductorio)
-
-.link http://tour.golang.org
-
-Documentación:
-
-.link http://golang.org/pkg
-
-Artículos:
-
-.link http://golang.org/doc
-
-Concurrency is not parallelism:
-
-.link http://golang.org/s/concurrency-is-not-parallelism
+- Home: [[http://golang.org]]
+- A tour of Go: [[http://tour.golang.org]]
+- Documentación: [[http://golang.org/pkg]]
+- Artículos: [[http://golang.org/doc]]
+- Presentaciones: [[http://talks.golang.org]]
+- Concurrency is not parallelism: [[http://golang.org/s/concurrency-is-not-parallelism]]
+- The laws of reflection: [[http://blog.golang.org/laws-of-reflection]]
+- Go Advent Days: [[http://blog.gopheracademy.com/day-24-thank-you]]
+- Playground: [[http://play.golang.org]]
